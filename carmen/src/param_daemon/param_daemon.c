@@ -275,8 +275,8 @@ find_valid_robots(char **robot_names, int *num_robots, int max_robots)
 		 "consult the param_server documentation to make sure the\n"
 		 "file format is valid.\n", count, param_filename, 
 		 MAX_VARIABLE_LENGTH-1);
-      count++;
-      if(err != NULL) {
+    count++;
+    if(err != NULL) {
       mark = strchr(line, '#');    /* strip comments and trailing returns */
       if(mark != NULL)
 	mark[0] = '\0';

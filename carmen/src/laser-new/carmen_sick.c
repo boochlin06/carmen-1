@@ -89,7 +89,8 @@ int carmen_sick_handle(carmen_laser_device_t* device){
 	  double ett=timeTolerance/expectedPeriod;
 	  if (fabs(dt-expectedPeriod)>ett)
 	    fprintf(stderr, "D");
-	    return 0;
+
+	  return 0;
 	}
 	//fprintf(stderr,"!");
 	sick_parse_measurement(sick , &offset, &n_ranges, irange, NULL, NULL, NULL, &n_remissions, iremission, buffer);

@@ -2,9 +2,9 @@ include ../Makefile.conf
 
 ##SUBDIRS = pioneerlib rflexlib scoutlib xr4000_base segway_base orcbotlibv4 orcbotlib
 
-SUBDIRS = 
+SUBDIRS = pioneerlib
 
-for robs in $(ROBOT_TYPES); do 	\
+#for robs in $(ROBOT_TYPES); do 	\
 	ifeq ($$robs,pioneer) 	SUBDIRS += pioneerlib ; endif ; \
 	ifeq ($$robs,rflex)    	SUBDIRS += rflexlib ; endif ; \
 	ifeq ($$robs,scout) 	SUBDIRS += scoutlib ; endif ; \
