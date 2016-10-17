@@ -204,9 +204,7 @@ redraw (GtkMapViewer *map_view, int map_changed, int viewport_changed)
   GdkPixmap *drawing_pixmap;
 
   GtkWidget *widget;
-  int width, height;
   int x_render_size, y_render_size;
-  carmen_map_config_t config;
   carmen_point_t top_left;
 
   widget = map_view->image_widget;
@@ -254,10 +252,6 @@ redraw (GtkMapViewer *map_view, int map_changed, int viewport_changed)
 
   gdk_draw_rectangle (drawing_pixmap, map_view->drawing_gc, TRUE, 0, 0, 
                       map_view->port_size_x, map_view->port_size_y);
-
-  config = map_view->internal_map->config;
-  width = config.x_size;
-  height = config.y_size;
 
   if (map_view->current_pixbuf) {
     top_left.x = map_view->x_scroll_adj->value;
@@ -353,10 +347,7 @@ static int configure_event (GtkWidget *widget __attribute__ ((unused)),
 static gint rescale_event(GtkWidget *image_widget __attribute__ ((unused)), 
 			  GtkMapViewer *map_view) 
 {
-  carmen_map_config_t config;
   carmen_world_point_t new_centre;
-
-  config = map_view->internal_map->config;
 
   recover_centre(map_view, &new_centre);
   map_view->centre = new_centre;
@@ -563,7 +554,6 @@ carmen_map_graphics_add_map(GtkMapViewer *map_view, carmen_map_p new_map,
 			    int new_flags)
 {
   carmen_world_point_t point;
-  carmen_map_config_t config;
 
   if (map_view->internal_map != NULL)
     carmen_map_destroy(&(map_view->internal_map));
@@ -578,8 +568,6 @@ carmen_map_graphics_add_map(GtkMapViewer *map_view, carmen_map_p new_map,
   point.pose.theta = 0;
   point.map = map_view->internal_map;
   map_view->centre = point;
-
-  config = new_map->config;
 
   redraw(map_view, 1, 0);
 }

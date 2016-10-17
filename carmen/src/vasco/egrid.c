@@ -212,12 +212,11 @@ void carmen_mapper_update_evidence_grid_general(evidence_grid *grid,
 						double laser_theta, int num_readings,
 						float *laser_range,
 						float *laser_angle,
-						double angular_resolution,
 						double first_beam_angle)
 {
   int i;
   int x1int, y1int, x2int, y2int, current_x, current_y, x_diff, y_diff;
-  double d, theta, delta_theta, p_filled, temp_laser_x, temp_laser_y;
+  double d, theta, p_filled, temp_laser_x, temp_laser_y;
   carmen_bresenham_param_t b_params;
   double new_prob;
   double correction_angle = 0;
@@ -246,7 +245,6 @@ void carmen_mapper_update_evidence_grid_general(evidence_grid *grid,
   y1int = (int)floor(laser_y);
 
   theta = laser_theta + first_beam_angle;
-  delta_theta = angular_resolution;
 
   for(i = 0; i < num_readings; i++) {
     if(laser_range[i] < LASER_RANGE_LIMIT) {

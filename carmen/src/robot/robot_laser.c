@@ -266,14 +266,7 @@ laser_frontlaser_handler(void)
   double theta, delta_theta;
   carmen_traj_point_t robot_posn, obstacle_pt;
   double max_velocity, velocity;
-
-  int tooclose = -1;
-  double tooclose_theta = 0;
-
-  int min_index;
-  //  double min_theta = 0;
   double min_dist;
-  
 
   static double time_since_last_process = 0;
   double skip_sum = 0;
@@ -361,20 +354,16 @@ laser_frontlaser_handler(void)
 
     if (velocity < carmen_robot_config.max_t_vel) {
       if (velocity < max_velocity) {
-	tooclose = i;
-	tooclose_theta = theta;
 	max_velocity = velocity;
       }
       robot_front_laser.tooclose[i] = 1;
     }
   } /* End of for(i = 0; i < robot_front_laser.num_readings; i++) */
 
-  min_index = 0;
   min_dist = robot_front_laser.range[0];
   for(i = 1; i < robot_front_laser.num_readings; i++) { 
     if (robot_front_laser.range[i] < min_dist) {
       min_dist = robot_front_laser.range[i];
-      min_index = i;
     }
   }
 
@@ -411,9 +400,6 @@ laser_rearlaser_handler(void)
   double theta, delta_theta;
   carmen_traj_point_t robot_posn, obstacle_pt;
   double min_velocity, velocity;
-
-  int tooclose = -1;
-  double tooclose_theta = 0;
 
   static double time_since_last_process = 0;
   double skip_sum = 0;
@@ -506,8 +492,6 @@ laser_rearlaser_handler(void)
 
     if (velocity > -carmen_robot_config.max_t_vel) {
       if (velocity > min_velocity) {
-	tooclose = i;
-	tooclose_theta = theta;
 	min_velocity = velocity;
       }
       robot_rear_laser.tooclose[i] = 1;

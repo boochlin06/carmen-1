@@ -50,7 +50,7 @@ rad2deg(double x)
 int
 main( int argc, char *argv[] )
 { 
-  carmen_point_t                  pos, corrpos, odo;
+  carmen_point_t                  pos, corrpos;
   double                          time;
   int                             i;
   int                             scancnt;
@@ -130,7 +130,6 @@ main( int argc, char *argv[] )
     }
 
     if (correct_msg) {
-      odo = l.robot_pose;
       pos = l.laser_pose;
 
       /* using the new scan match function that takes robot laser messages...

@@ -50,7 +50,6 @@ main(int argc, char** argv)
   double length;
   char *dev;
   int num_items;
-  char *robot_name;
   char **modules;
   int num_modules;
 
@@ -68,7 +67,6 @@ main(int argc, char** argv)
 
   carmen_param_install_params(argc, argv, param_list, num_items);
  
-  robot_name = carmen_param_get_robot();
   carmen_param_get_modules(&modules, &num_modules);
  
   carmen_warn("robot_length is %.1f\n", length);

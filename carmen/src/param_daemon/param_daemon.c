@@ -97,9 +97,7 @@ static int
 lookup_name(char *full_name) 
 {
   int index;
-  unsigned int name_length;
 
-  name_length = strlen(full_name);
   for (index = 0; index < num_params; index++)
     {
       if (carmen_strcasecmp(param_list[index].lvalue, full_name) == 0)

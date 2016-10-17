@@ -58,7 +58,6 @@ static int goal_set = 0;
 static int 
 extract_path_from_value_function(void) 
 {
-  int position;
   carmen_traj_point_t path_point;
   carmen_map_point_t cur_point, prev_point, map_goal;
 
@@ -88,7 +87,7 @@ extract_path_from_value_function(void)
     prev_point = cur_point;
     carmen_conventional_find_best_action(&cur_point);
     carmen_map_to_trajectory(&cur_point, &path_point);
-    position = carmen_planner_util_add_path_point(path_point, &path);
+    carmen_planner_util_add_path_point(path_point, &path);
     if (cur_point.x == map_goal.x && cur_point.y == map_goal.y) 
       return 0;
   } while (cur_point.x != prev_point.x || cur_point.y != prev_point.y);
@@ -155,15 +154,10 @@ static void
 smooth_path(carmen_navigator_config_t *nav_conf) 
 {
   int path_index;
-  int new_path_counter;
   double cost_along_prev, cost_along_next;
   double min_cost_prev, min_cost_next;
   double new_cost, new_min_cost;
-  double prev_cost;
 
-  prev_cost = cost_of_path();
-
-  new_path_counter = 0;
   path_index = 1;
 
   while (path.length > 2 && carmen_distance_traj
@@ -249,8 +243,6 @@ static int find_nearest_free_point_to_goal(void)
 static void 
 plan(carmen_navigator_config_t *nav_conf) 
 {
-  static int old_goal_x, old_goal_y;
-  static carmen_traj_point_t old_robot;
   static carmen_map_point_t map_pt;
   static double last_plan_time = 0;
   int goal_x, goal_y;
@@ -282,9 +274,6 @@ plan(carmen_navigator_config_t *nav_conf)
   }
 
   last_plan_time = carmen_get_time();
-  old_goal_x = goal_x;
-  old_goal_y = goal_y;
-  old_robot = robot;
 }
 
 //we need to make regenerate trajectory polymorphic somehow
@@ -594,11 +583,9 @@ carmen_planner_get_map_message(carmen_navigator_map_t map_type)
     {
       int index;
       float *mp;
-      double *db_p;
       map_ptr = (float *)calloc(size, sizeof(float));
       carmen_test_alloc(map_ptr);
       mp = map_ptr;
-      db_p = dbl_ptr;
       for (index = 0; index < size; index++)
 	*(mp++) = (float)*(dbl_ptr++);
     }
@@ -613,11 +600,9 @@ carmen_planner_get_map_message(carmen_navigator_map_t map_type)
     {
       int index;
       float *mp;
-      double *db_p;
       map_ptr = (float *)calloc(size, sizeof(float));
       carmen_test_alloc(map_ptr);
       mp = map_ptr;
-      db_p = dbl_ptr;
       for (index = 0; index < size; index++)
 	*(mp++) = (float)*(dbl_ptr++);
     }

@@ -580,14 +580,13 @@ carmen_base_direct_set_velocity(double tv, double rv)
 int 
 carmen_base_direct_update_status(double* update_timestamp) 
 {
-  int read = 0;
   double packet_timestamp=0.;
   pioneer_send_command0(PIONEER_PULSE);
   memset(&raw_state, 0, sizeof(struct pioneer_raw_information_packet));
   raw_state.motor_status = 0;
   do 
     {
-      read = pioneer_read_string((unsigned char*) &raw_state, 
+      pioneer_read_string((unsigned char*) &raw_state,
 				 PIONEER_SERIAL_TIMEOUT, &packet_timestamp);
     }
   while (carmen_serial_numChars(dev_fd) > 0);

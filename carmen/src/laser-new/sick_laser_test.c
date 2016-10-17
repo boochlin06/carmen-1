@@ -21,7 +21,6 @@ int main(int argc, char** argv){
 
 	int connected=0;
 	int configured=0;
-	int monitoringMode=0;
 	
 	if (argc!=2){
 	  fprintf(stderr, "usage: %s <device>\n", argv[0]);
@@ -55,7 +54,7 @@ int main(int argc, char** argv){
 		}
 	}
 	fprintf(stderr,"Stopping Continuous Mode... \n");
-	monitoringMode=sick_stop_continuous_mode(&sick);
+	sick_stop_continuous_mode(&sick);
 	close(sick.fd);
 	return 0;
 }

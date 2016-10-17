@@ -78,7 +78,6 @@ int main(int argc, char **argv)
   fprintf(stderr, "done\n");
 
   //waits in the queue
-  double oldTime=0;
   while (! has_to_stop){
     carmen_laser_laser_static_message m;    
     int queued=carmen_laser_message_queue_wait_get(&queue, &m);
@@ -121,7 +120,6 @@ int main(int argc, char **argv)
 	fprintf(stderr, "%.2f ", msg.range[i]);
       }
       fprintf(stderr, "]\n ");
-      oldTime=time;
     }
   }
   

@@ -54,7 +54,6 @@ static void generate_next_motion_command(void);
 static void base_odometry_handler(void) 
 {
   static int odometry_initialised = 0;
-  static double last_message = 0;
 
   corrected_odometry = odometry;
 
@@ -78,8 +77,6 @@ static void base_odometry_handler(void)
       globalpos.odometrypos.theta = corrected_odometry.theta;
       
       odometry_initialised = 1;
-      
-      last_message = carmen_get_time();
     } /* if (odometry_initialised) ... else */
   
   robot_position.t_vel = corrected_odometry.tv;

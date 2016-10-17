@@ -39,14 +39,14 @@ char *my_hostname = NULL;
 
 void kill_process(process_info_p process)
 {
-  int err, status;
+  int status;
 
   fprintf(stderr, "PROCCONTROL (%d): Killing %s (%d)\n", 
 	  my_pid, process->command_line, process->pid);
   kill(process->pid, SIGKILL);
   process->state = 0;
 
-  err = waitpid(process->pid, &status, 0);
+  waitpid(process->pid, &status, 0);
 
   close(process->pipefd[0]);
   close(process->pipefd[1]);
@@ -56,7 +56,6 @@ void start_process(process_info_p process)
 {
   char *arg[4];
   int spawned_pid;
-  int ret_val;
 
   /* First argument will be "sh" plus one byte for the terminating null. */
   arg[0] = (char *)malloc((strlen("sh") + 1) * sizeof(char));
@@ -77,7 +76,7 @@ void start_process(process_info_p process)
   /* Fourth argument will be NULL as required by the function. */
   arg[3] = NULL;
 
-  ret_val = pipe(process->pipefd);
+  pipe(process->pipefd);
   
   /* fork! */
   if((spawned_pid = fork()) == 0) {

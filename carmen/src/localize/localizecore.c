@@ -433,7 +433,7 @@ void carmen_localize_incorporate_odometry(carmen_localize_particle_filter_p filt
 {
   int i, backwards;
   double delta_t, delta_theta;
-  double dx, dy, odom_theta;
+  double dx, dy;
 #ifndef OLD_MOTION_MODEL
   double downrange, crossrange, turn;
 #else
@@ -454,7 +454,7 @@ void carmen_localize_incorporate_odometry(carmen_localize_particle_filter_p filt
   delta_t = sqrt(dx * dx + dy * dy);
   delta_theta = carmen_normalize_theta(odometry_position.theta - 
 				       filter->last_odometry_position.theta);
-  odom_theta = atan2(dy, dx);
+
   backwards = (dx * cos(odometry_position.theta) + 
 	       dy * sin(odometry_position.theta) < 0);
 

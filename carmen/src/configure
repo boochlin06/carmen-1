@@ -1081,7 +1081,6 @@ int main(int argc, char *argv[])
   int mode = 0;
   char path_buffer[1024], buffer[1024];
   char *dir;
-  int num_read;
 
   if (argc == 1)
     usage(argc, argv);
@@ -1091,7 +1090,7 @@ int main(int argc, char *argv[])
   else {
     sprintf(path_buffer, "/proc/%d/exe", getpid());
     memset(buffer, 0, 1024);
-    num_read = readlink(path_buffer, buffer, 1024);
+    readlink(path_buffer, buffer, 1024);
     home = buffer;
 
     dir = strrchr(buffer, '/');

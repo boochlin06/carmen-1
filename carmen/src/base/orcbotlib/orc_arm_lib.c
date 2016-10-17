@@ -260,7 +260,6 @@ void carmen_arm_direct_update_joints( double *desired_angles ){
   //printf( "orc_arm_lib: desired angles are %f, %f, %f \n " , 
   //	  desired_angles[0], desired_angles[1], desired_angles[2] );
 
-  double velocity_command_set[s_num_joints];
   int pwm_command_set[s_num_joints];
 
   double pTerm = 0.0, dTerm = 0.0; double *iTermPtr;
@@ -344,7 +343,6 @@ void carmen_arm_direct_update_joints( double *desired_angles ){
       }
       
       // set the values into our array
-      velocity_command_set[i] = desired_angular_velocity;
       pwm_command_set[i] = command_pwm;
       
     }

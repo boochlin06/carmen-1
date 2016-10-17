@@ -132,7 +132,7 @@ void IMUMessage::getRollPitchYaw(double& roll, double& pitch, double& yaw) {
 
   double s = n > 0?2./(n*n):0.;
   
-  double m00, m01, m02, m10, m11, m12, m20, m21, m22;
+  double m00, m10, m20, m21, m22;
   
   double xs = quat_x*s;
   double ys = quat_y*s;
@@ -152,21 +152,14 @@ void IMUMessage::getRollPitchYaw(double& roll, double& pitch, double& yaw) {
   double zz = quat_z*zs;
   
   m00 = 1.0 - (yy + zz);
-  m11 = 1.0 - (xx + zz);
   m22 = 1.0 - (xx + yy);
   
-  
   m10 = xy + wz;
-  m01 = xy - wz;
   
   m20 = xz - wy;
-  m02 = xz + wy;
   m21 = yz + wx;
-  m12 = yz - wx;
   
   roll   = atan2(m21,m22);
   pitch = atan2(-m20,sqrt(m21*m21 + m22*m22));
   yaw     = atan2(m10,m00);
-
-
 }

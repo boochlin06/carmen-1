@@ -814,9 +814,8 @@ void UpdateAncestry(TSense sense, TAncestor particleID[])
 //
 int ReadLog(carmen_FILE *logFile, carmen_logfile_index_p logfile_index, 
 	    TSense &sense) {
-  int i, max;
+  int max;
   char line[4096];
-  int laser;
   carmen_robot_laser_message laser_msg;
 
   if (carmen_logfile_eof(logfile_index)) {
@@ -825,7 +824,7 @@ int ReadLog(carmen_FILE *logFile, carmen_logfile_index_p logfile_index,
   }
 
   do {
-    laser = carmen_logfile_read_next_line(logfile_index, logFile,
+    carmen_logfile_read_next_line(logfile_index, logFile,
 					  4095, line);
   } while (strncmp(line, "ROBOTLASER1 ", 12) != 0);
 
@@ -837,7 +836,7 @@ int ReadLog(carmen_FILE *logFile, carmen_logfile_index_p logfile_index,
     max = SENSE_NUMBER;
       
   // Now read in the whole list of laser readings.
-  for (i = 0; i < max; i++) {
+  for (int i = 0; i < max; i++) {
     sense[i].theta = (i*M_PI/max) - M_PI/2;
     sense[i].distance = laser_msg.range[i] * MAP_SCALE;
     if (sense[i].distance > MAX_SENSE_RANGE)
@@ -873,7 +872,6 @@ void PrintMap(char *name, TAncestor *parent, int particles, double overlayX, dou
   int startx, starty, lastx, lasty;
   char sysCall[128];
   double hit, theta;
-  int ret_val;
 
   width = MAP_WIDTH;
   height = MAP_HEIGHT;
@@ -969,11 +967,11 @@ void PrintMap(char *name, TAncestor *parent, int particles, double overlayX, dou
   // We're finished making the ppm file, and now convert it to png, for compressed storage and easy viewing.
   fclose(printFile);
   sprintf(sysCall, "convert %s.ppm %s.png", name, name);
-  ret_val = system(sysCall);
+  system(sysCall);
   sprintf(sysCall, "chmod 666 %s.ppm", name);
-  ret_val = system(sysCall);
+  system(sysCall);
   sprintf(sysCall, "chmod 666 %s.png", name);
-  ret_val = system(sysCall);
+  system(sysCall);
   fprintf(stderr, "Map dumped to file\n");
 }
 
@@ -1012,13 +1010,11 @@ void CloseLowSlam()
 //
 void LowSlam(TPath **path, TSenseLog **obs)
 {
-  int cnt;
   int i, j, overflow = 0;
   char name[32];
   TPath *tempPath;
   TSenseLog *tempObs;
   TAncestor *lineage;
-  int ret_val;
 
   // Initialize the worldMap
   LowInitializeWorldMap();
@@ -1094,7 +1090,6 @@ void LowSlam(TPath **path, TSenseLog **obs)
   }
   (*obs)->next = NULL;
 
-  cnt = 0;
   while (curGeneration < LEARN_DURATION) {
     // Collect information from the data log. If either reading returns 1, we've run out of log data, and
     // we need to stop now.
@@ -1173,7 +1168,7 @@ void LowSlam(TPath **path, TSenseLog **obs)
       j = i;
   PrintMap(name, l_particle[j].ancestryNode, FALSE, -1, -1, -1);
   sprintf(name, "rm map.ppm");
-  ret_val = system(name);
+  system(name);
 
   // Clean up the memory being used.
   DisposeAncestry(l_particleID);

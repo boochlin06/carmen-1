@@ -72,8 +72,8 @@ carmen_simulator_recalc_pos(carmen_simulator_config_t *simulator_config)
 
   double distance, radius, centre_x, centre_y, delta_angle;
   int backwards;
-  double dx, dy, odom_theta;
-  double delta_t, delta_theta;
+  double dx, dy;
+  double delta_t;
 #ifndef OLD_MOTION_MODEL
   double downrange, crossrange, turn;
   carmen_localize_motion_model_t *model;
@@ -149,9 +149,7 @@ carmen_simulator_recalc_pos(carmen_simulator_config_t *simulator_config)
   dy = new_odom.y - old_odom.y;
 
   delta_t = sqrt(dx * dx + dy * dy);
-  delta_theta = carmen_normalize_theta(new_odom.theta - old_odom.theta);
 
-  odom_theta = atan2(dy, dx);
   backwards = (dx * cos(new_odom.theta) + dy * sin(new_odom.theta) < 0);
 
 #ifndef OLD_MOTION_MODEL  

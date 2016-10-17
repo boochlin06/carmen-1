@@ -609,7 +609,7 @@ unsigned char sick_parse_measurement(
   int numMeasurements;
   int conversion=1;
   int i = 0, LoB = 0, HiB = 0, bit14, bit15;
-  int parts, offs, mstart, mend;
+  int offs;
 
   packet+=4;
   //	fprintf(stderr, "%02x ", *packet);
@@ -658,10 +658,8 @@ unsigned char sick_parse_measurement(
   case 0Xf5:
       if (offset)
 	  *offset=0;
-    parts = packet[1] & 0x7;
+
     offs = 0;
-    mstart = ((packet[offs + 4] << 8) + packet[offs + 3]);
-    mend   = ((packet[offs + 6] << 8) + packet[offs + 5]);
     //fprintf(stderr, "mstart, mend = %d, %d\n", mstart, mend);
     numMeasurements = ((packet[offs + 8] << 8) + packet[offs + 7]) & 0x3FFF;
     //fprintf(stderr, "num_measurem. = %d\n",numMeasurements);

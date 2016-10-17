@@ -345,7 +345,7 @@ carmen_map_get_hmap(carmen_hmap_p hmap)
   static carmen_hmap_request_message *query;
   static carmen_hmap_message *response;
   unsigned int timeout = 10000;
-  int i, n;
+  int i;
 
   err = IPC_defineMsg(CARMEN_HMAP_REQUEST_NAME, IPC_VARIABLE_LENGTH, 
 		      CARMEN_DEFAULT_MESSAGE_FMT);
@@ -377,7 +377,6 @@ carmen_map_get_hmap(carmen_hmap_p hmap)
       carmen_test_alloc(hmap->links[i].keys);
       memcpy(hmap->links[i].keys, response->hmap.links[i].keys, hmap->links[i].degree * sizeof(int));
       hmap->links[i].num_points = response->hmap.links[i].num_points;
-      n = hmap->links[i].num_points / hmap->links[i].degree;
       hmap->links[i].points = (carmen_point_p) calloc(hmap->links[i].num_points, sizeof(carmen_point_t));
       carmen_test_alloc(hmap->links[i].points);
       memcpy(hmap->links[i].points, response->hmap.links[i].points,

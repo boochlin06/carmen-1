@@ -1192,7 +1192,7 @@ static int Comm_Robot(int fd, unsigned char command[BUFSIZE])
 {
   unsigned char response[BUFSIZE];
   int respondedp;
-  int re_xmitp, i;
+  int i;
   fd_set          lfdvar;
   struct timeval  timeout;
 
@@ -1217,7 +1217,7 @@ static int Comm_Robot(int fd, unsigned char command[BUFSIZE])
     }
     fprintf(stderr, "Successful!  Continuing with command.\n");
   }
-  re_xmitp = RE_XMIT;
+
   FD_ZERO(&lfdvar);
   FD_SET(fd, &lfdvar);
   
@@ -2175,7 +2175,6 @@ int tk(char *talk_string)
 {
   unsigned char outbuf[BUFSIZE], *byte_ptr;
   int tkfd, i, length;
-  int num_written; 
 
   if (model == MODEL_N200)
   {
@@ -2194,8 +2193,8 @@ int tk(char *talk_string)
     tkfd = open("/dev/dbtk", O_RDWR);
     if (tkfd >= 0)
     {
-      num_written = write(tkfd, talk_string, strlen(talk_string));
-      num_written = write(tkfd, "\n", 1);
+      write(tkfd, talk_string, strlen(talk_string));
+      write(tkfd, "\n", 1);
       close(tkfd);
       
       return TRUE;

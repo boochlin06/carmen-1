@@ -498,7 +498,6 @@ carmen_conventional_dynamic_program(int goal_x, int goal_y)
   int index;
   double max_val, min_val;
   int num_expanded;
-  int done;
 
   struct timeval start_time, end_time;
   int delta_sec, delta_usec;
@@ -534,7 +533,6 @@ carmen_conventional_dynamic_program(int goal_x, int goal_y)
 
   max_val = -MAXDOUBLE;
   min_val = MAXDOUBLE; 
-  done = 0;
 
   state_queue = make_queue();
 

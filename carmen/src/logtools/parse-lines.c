@@ -1500,7 +1500,6 @@ placelab_parse_line( char *line, logtools_log_data_t *rec,
   static char    buf[MAX_LINE_LENGTH];
   static char    command[MAX_CMD_LENGTH];
   static char    dummy[MAX_CMD_LENGTH];
-  static int     continuous = TRUE;
   
   running = line;
   ctr = 0;
@@ -1546,7 +1545,6 @@ placelab_parse_line( char *line, logtools_log_data_t *rec,
       placelab_parse_gps_line( cline, &(rec->gps[rec->numgps]) );
       rec->numgps++;
       rec->numentries++;
-      continuous = FALSE;
       return(TRUE);
       break;
     default:

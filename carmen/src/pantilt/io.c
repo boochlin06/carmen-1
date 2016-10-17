@@ -119,14 +119,13 @@ writeCMD(PantiltDeviceType dev, char *cmd, char *retstr )
   struct timeval currentTime;
   char scmd[80];
   char buffer[512];
-  int ret, val, lval, i, len;
+  int val, lval, i, len;
   strcpy( scmd, cmd );
   scmd[strlen(cmd)] = '\n';
   scmd[strlen(cmd)+1] = '\0';
   gettimeofday(&startTime, NULL);
   writeN( dev, scmd, strlen(scmd) );
   lval=0;
-  ret=FALSE;
   while( !checkLine( buffer, lval ) ) {
     gettimeofday(&currentTime, NULL);
     if ( !( currentTime.tv_sec < startTime.tv_sec + MAX_CMD_TIME || 

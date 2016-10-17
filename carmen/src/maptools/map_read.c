@@ -371,7 +371,6 @@ int carmen_map_advance_to_named_chunk(carmen_FILE *fp, int specific_chunk,
 int carmen_map_chunk_exists(char *filename, int specific_chunk)
 {
   carmen_FILE *fp;
-  char chunk_type;
   int chunk_size;
 
   fp = carmen_fopen(filename, "r");
@@ -385,7 +384,7 @@ int carmen_map_chunk_exists(char *filename, int specific_chunk)
     return 0;
   }
   else {
-    chunk_type = carmen_fgetc(fp);
+    carmen_fgetc(fp);
     carmen_fread(&chunk_size, sizeof(int), 1, fp);
     carmen_fclose(fp);
     return chunk_size;
@@ -396,7 +395,6 @@ int carmen_map_named_chunk_exists(char *filename, int specific_chunk,
 				  char *name)
 {
   carmen_FILE *fp;
-  char chunk_type;
   int chunk_size;
 
   fp = carmen_fopen(filename, "r");
@@ -410,7 +408,7 @@ int carmen_map_named_chunk_exists(char *filename, int specific_chunk,
     return 0;
   }
   else {
-    chunk_type = carmen_fgetc(fp);
+    carmen_fgetc(fp);
     carmen_fread(&chunk_size, sizeof(int), 1, fp);
     carmen_fclose(fp);
     return chunk_size;

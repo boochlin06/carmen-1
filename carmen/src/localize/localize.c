@@ -219,9 +219,7 @@ globalpos_query_handler(MSG_INSTANCE msgRef, BYTE_ARRAY callData,
 {
   IPC_RETURN_TYPE err;
   carmen_localize_globalpos_message globalpos;
-  FORMATTER_PTR formatter;
   
-  formatter = IPC_msgInstanceFormatter(msgRef);
   IPC_freeByteArray(callData);
 
   globalpos.timestamp = carmen_get_time();

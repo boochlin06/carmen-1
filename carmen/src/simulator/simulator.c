@@ -190,9 +190,7 @@ static void truepos_query_handler(MSG_INSTANCE msgRef, BYTE_ARRAY callData,
 {
   IPC_RETURN_TYPE err;
   carmen_simulator_truepos_message response;
-  FORMATTER_PTR formatter;
   
-  formatter = IPC_msgInstanceFormatter(msgRef);
   IPC_freeByteArray(callData);
 
   response.timestamp = carmen_get_time();
@@ -202,7 +200,6 @@ static void truepos_query_handler(MSG_INSTANCE msgRef, BYTE_ARRAY callData,
 
   err = IPC_respondData(msgRef, CARMEN_SIMULATOR_TRUEPOS_NAME, &response);
   carmen_test_ipc(err, "Could not respond", CARMEN_SIMULATOR_TRUEPOS_NAME);
-
 }
 
 /* handles C^c */

@@ -36,12 +36,11 @@ carmen_hmap_t get_hmap() {
   char line[1024], *s, *ptr;
   carmen_hmap_t hmap;
   int i, j, k, n, len, num_points;
-  char *ret_val;
 
   printf("Enter map files: ");
   fflush(stdout);
   
-  ret_val = fgets(line, 1024, stdin);
+  fgets(line, 1024, stdin);
   line[strcspn(line, "\n")] = '\0';
   
   s = line;
@@ -99,7 +98,7 @@ carmen_hmap_t get_hmap() {
     carmen_test_alloc(hmap.links);
     printf("Interface Node %d: ", i+1);
     fflush(stdout);
-    ret_val = fgets(line, 1024, stdin);
+    fgets(line, 1024, stdin);
     if (*line == '\n')
       break;
     line[strcspn(line, "\n")] = '\0';

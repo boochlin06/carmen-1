@@ -251,7 +251,6 @@ static unsigned char *read_packet(void)
   int num_ready_chars;
   int packet_length;
   struct timeval timeout;
-  int num_ready;
 
   int count = 0;
   int packet_count = 0;
@@ -270,7 +269,7 @@ static unsigned char *read_packet(void)
 	//	FD_ZERO(&rfds);
 	//	FD_SET(0, &rfds);
 	//        num_ready = select(1, &rfds, NULL, NULL, &timeout);
-        num_ready = select(0, NULL, NULL, NULL, &timeout);
+        select(0, NULL, NULL, NULL, &timeout);
         num_ready_chars = carmen_serial_numChars(serial_fd);
         count++;
       }
@@ -548,9 +547,7 @@ static void unpack_slave_packet(unsigned char *buffer)
   short left_tick, right_tick, time_ticks, delta_slave_ticks;
   int left_delta_tick, right_delta_tick;
   int left_dir, right_dir;
-  unsigned char left_pinmode, right_pinmode;
   unsigned short voltage;
-  static double start;
   int left_orc_encoder, right_orc_encoder;
 
   unsigned char left_slew, right_slew;
@@ -559,7 +556,6 @@ static void unpack_slave_packet(unsigned char *buffer)
   //printf("unpack_slave_packet\n");
 
   if (!initialized) {
-    start = carmen_get_time();
     initialized = 1;
 
     x = 0;
@@ -605,9 +601,6 @@ static void unpack_slave_packet(unsigned char *buffer)
   servo_current[0] = voltage_to_current(voltage);
   voltage = unpack_short(buffer, ORC_SERVO_CURRENT+2);
   servo_current[1] = voltage_to_current(voltage);
-
-  left_pinmode = buffer[ORC_LEFT_PINMODE];
-  right_pinmode = buffer[ORC_RIGHT_PINMODE];
 
   left_pwm = buffer[ORC_LEFT_MOTOR_ACTUAL_PWM];
   right_pwm = buffer[ORC_RIGHT_MOTOR_ACTUAL_PWM];

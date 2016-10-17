@@ -78,12 +78,11 @@ static void navigator_status_query_handler(MSG_INSTANCE msgRef,
 					   void *clientData __attribute__ 
 					   ((unused))) 
 {
-  FORMATTER_PTR formatter;
   IPC_RETURN_TYPE err;
   carmen_navigator_status_message status_msg;
   carmen_planner_status_t status;
 
-  formatter = IPC_msgInstanceFormatter(msgRef);
+  IPC_msgInstanceFormatter(msgRef);
   IPC_freeByteArray(callData);
   
   status_msg.timestamp = carmen_get_time();
@@ -172,12 +171,11 @@ static void navigator_plan_query_handler(MSG_INSTANCE msgRef,
 					 void *clientData __attribute__ 
 					 ((unused))) 
 {
-  FORMATTER_PTR formatter;
-  IPC_RETURN_TYPE err;
+    IPC_RETURN_TYPE err;
   carmen_navigator_plan_message plan_msg;
   carmen_planner_status_t status;
 
-  formatter = IPC_msgInstanceFormatter(msgRef);
+  IPC_msgInstanceFormatter(msgRef);
   IPC_freeByteArray(callData);
   
   plan_msg.timestamp = carmen_get_time();

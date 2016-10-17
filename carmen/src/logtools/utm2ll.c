@@ -77,17 +77,13 @@ logtools_utm2ll( logtools_utm_coord_t utm )
   double N1, T1, C1, R1, D, M;
   double long_origin;
   double mu, phi1_rad;
-  int    northernHemisphere;	/* 1 for northern hemisphere, 0 for southern */
   
   /* Now convert. */
   x = utm.easting - 500000.0;	/* remove 500000 meter offset */
   y = utm.northing;
-  if ( ( utm.letter - 'N' ) >= 0 )
-    northernHemisphere = 1;	/* northern hemisphere */
-  else {
-    northernHemisphere = 0;	/* southern hemisphere */
+  if ( ( utm.letter - 'N' ) < 0 )
     y -= 10000000.0;	        /* remove 1e7 meter offset */
-  }
+
   long_origin = ( utm.zone - 1 ) * 6 - 180 + 3;	/* +3 puts origin in middle of zone */
   eccPrimeSquared =
     EccentricitySquared / ( 1.0 - EccentricitySquared );

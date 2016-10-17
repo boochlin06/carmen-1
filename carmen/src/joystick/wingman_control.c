@@ -97,7 +97,7 @@ void read_parameters(int argc, char **argv)
 int main(int argc, char **argv)
 {
   double command_tv = 0, command_rv = 0;
-  double max_tv = 0, max_rv = 0;
+  double max_tv = 0;
   double f_timestamp;
   joy_device = (char*) calloc(256,sizeof(char));
 
@@ -128,7 +128,6 @@ int main(int argc, char **argv)
       max_tv = min_max_tv + (-joystick.axes[2] + 32767.0) / (32767.0 * 2.0) * (max_max_tv - min_max_tv);
 
      //      max_rv = min_max_rv + (-joystick.axes[2] + 32767.0) / (32767.0 * 2.0) * (max_max_rv - min_max_rv);
-      max_rv = max_max_rv;
 
       if (throttle_mode) {
 	command_tv = max_tv;

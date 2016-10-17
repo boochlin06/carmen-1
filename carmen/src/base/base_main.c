@@ -114,12 +114,11 @@ initialize_robot(void)
 static void arm_command_handler(MSG_INSTANCE msgRef, BYTE_ARRAY callData,
 				void *clientData __attribute__ ((unused)))
 {
-  IPC_RETURN_TYPE err;
   carmen_arm_command_message msg;
   FORMATTER_PTR formatter;
 
   formatter = IPC_msgInstanceFormatter(msgRef);
-  err = IPC_unmarshallData(formatter, callData, &msg,
+  IPC_unmarshallData(formatter, callData, &msg,
 			   sizeof(carmen_arm_command_message));
   IPC_freeByteArray(callData);
   
@@ -132,8 +131,6 @@ static void arm_command_handler(MSG_INSTANCE msgRef, BYTE_ARRAY callData,
 static void arm_query_handler(MSG_INSTANCE msgRef, BYTE_ARRAY callData,
 			      void *clientData __attribute__ ((unused)))
 {
-  IPC_RETURN_TYPE err;
-
   IPC_freeByteArray(callData);
 
   if (num_arm_joints > 0) 
@@ -144,7 +141,7 @@ static void arm_query_handler(MSG_INSTANCE msgRef, BYTE_ARRAY callData,
 
   arm_state.timestamp = carmen_get_time();
   arm_state.host = carmen_get_host();
-  err = IPC_respondData(msgRef, CARMEN_ARM_STATE_NAME, &arm_state);
+  IPC_respondData(msgRef, CARMEN_ARM_STATE_NAME, &arm_state);
 }
 
 static void initialize_arm_message(void)

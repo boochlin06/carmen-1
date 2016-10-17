@@ -130,19 +130,11 @@ void carmen_robot_correct_sonar_and_publish(void)
 static void sonar_handler(void)
 {
   int i;
-  double safety_distance;
-  
   double theta;
   carmen_traj_point_t robot_posn;
   carmen_traj_point_t obstacle_pt;
   double max_velocity = carmen_robot_config.max_t_vel;
   double velocity;
-
-  int tooclose = -1;
-  double tooclose_theta = 0;
-
-  int min_index;
-  //double min_theta = 0;
   double min_dist;
   
   check_message_data_chunk_sizes();
@@ -164,12 +156,6 @@ static void sonar_handler(void)
 
 
   if (collision_avoidance) {
-    safety_distance = 
-      carmen_robot_config.length / 2.0 + carmen_robot_config.approach_dist + 
-      0.5 * carmen_robot_latest_odometry.tv * carmen_robot_latest_odometry.tv / 
-      carmen_robot_config.acceleration +
-      carmen_robot_latest_odometry.tv * carmen_robot_config.reaction_time;
-    
     max_velocity = carmen_robot_config.max_t_vel;
     
     robot_posn.x = 0;
@@ -186,20 +172,16 @@ static void sonar_handler(void)
       velocity=carmen_geometry_compute_velocity(robot_posn, obstacle_pt, &carmen_robot_config);
       if(velocity < carmen_robot_config.max_t_vel) {
 	if(velocity<max_velocity) {
-	  tooclose=i;
-	  tooclose_theta=theta;
 	  max_velocity = velocity;
 	}
       }
       
     }
     
-    min_index=0;
     min_dist = robot_sonar.ranges[0];
     for(i=1; i<robot_sonar.num_sonars; i++) {
       if(robot_sonar.ranges[i]<min_dist) {
 	min_dist=robot_sonar.ranges[i];
-	min_index=i;
       }
     }
     

@@ -1356,12 +1356,9 @@ initialize_position(carmen_world_point_p point)
   point->map = map_view->internal_map;
 }
 
-static void set_goal(GtkAction *action, gpointer user_data)
+static void set_goal(GtkAction *action __attribute__ ((unused)), gpointer user_data)
 {
-  char *name;
   int place_index;
-
-  name = (char *)gtk_action_get_name(action);
 
   for (place_index = 0; place_index < placelist->num_places; place_index++) {
     if (strcmp(user_data, placelist->places[place_index].name) == 0) {

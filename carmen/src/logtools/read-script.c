@@ -78,12 +78,7 @@ read_script( char *filename, logtools_log_data_t *script, int verbose ) {
 
   /* this is one of the most awful things in beeSoft */
   int rotation_90_minus = FALSE;
-
-  int lastFScan         = -1;
-  int lastRScan         = -1;
-
   int FileEnd = FALSE;
-  char *ret_val;
 
   lprop[0].fov.start     =   -M_PI_2;
   lprop[0].fov.end       =    M_PI_2;
@@ -133,21 +128,21 @@ read_script( char *filename, logtools_log_data_t *script, int verbose ) {
 	if (fscanf(fp, "%d:", &numValues1) == EOF)
 	  FileEnd = TRUE;
 	else {
-	  ret_val = fgets( line, MAX_LINE_LENGTH,fp );
+	  fgets( line, MAX_LINE_LENGTH,fp );
 	}
       } else if (!strcmp( command, "#LASER") ){
 	numLaserScans++;
 	if (fscanf(fp, "%d %d:", &numValues1, &numValues2) == EOF)
 	    FileEnd = TRUE;
 	else {
-	  ret_val = fgets( line, MAX_LINE_LENGTH,fp );
+	  fgets( line, MAX_LINE_LENGTH,fp );
 	}
 	if (numValues1>0)
 	  numRLaserScans++;
 	if (numValues2>0)
 	  numRLaserScans++;
       } else {
-	ret_val = fgets(command,sizeof(command),fp);
+	fgets(command,sizeof(command),fp);
       }
     }
   } while (!FileEnd);
@@ -327,7 +322,6 @@ read_script( char *filename, logtools_log_data_t *script, int verbose ) {
 	      }
 	    }
 	    
-	    lastFScan = numRLaserScans;
 	    numRLaserScans++;
 	    cnt++;
 
@@ -368,7 +362,6 @@ read_script( char *filename, logtools_log_data_t *script, int verbose ) {
 		  lprop[1].fov.start+(i*angleDiff);
 	      }
 	    }
-	    lastRScan = numRLaserScans;
 	    numRLaserScans++;
 	    cnt++;
 	  }
@@ -383,7 +376,7 @@ read_script( char *filename, logtools_log_data_t *script, int verbose ) {
 	    exit(0);
 	  */
 	} else {
-	  ret_val = fgets(command,sizeof(command),fp);
+	  fgets(command,sizeof(command),fp);
 	}
       }
     }

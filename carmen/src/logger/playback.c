@@ -303,7 +303,6 @@ logger_callback_t logger_callbacks[] = {
 int read_message(int message_num, int publish)
 {
   char line[MAX_LINE_LENGTH], *current_pos;
-  IPC_RETURN_TYPE err;
   int i, j;
   char command[100];
   static double last_update = 0;
@@ -347,7 +346,7 @@ int read_message(int message_num, int publish)
 	    last_update = current_time;
 	  }
 	  wait_for_timestamp(playback_timestamp);
-	  err = IPC_publishData(logger_callbacks[i].ipc_message_name, 
+	  IPC_publishData(logger_callbacks[i].ipc_message_name,
 				logger_callbacks[i].message_data);
 	}
 	/* return 1 if it is a front laser message */

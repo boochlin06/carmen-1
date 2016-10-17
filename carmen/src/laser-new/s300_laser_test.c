@@ -13,7 +13,6 @@ int main(int argc, char** argv){
 	has_to_stop=0;
 	signal(SIGINT, sigquit_handler);
 	s300_laser_t sick;
-	int i;
 	unsigned int irange[1024];
 	struct timeval timestamp;
 	int connected=0;
@@ -22,7 +21,7 @@ int main(int argc, char** argv){
 	  fprintf(stderr, "usage: %s <device>\n", argv[0]);
 	  return 0;
 	}
-	i=0;
+
 	fprintf(stderr, "device is %s\n", argv[1]);
 	connected=s300_connect(&sick, argv[1], 500000);
 	if (connected<=0)

@@ -51,7 +51,6 @@ void proccontrol_publish_pidtable(int num_processes, process_info_p process)
 {
   static carmen_proccontrol_pidtable_message msg;
   static int first = 1;
-  double current_time;
   int i;
 
   if(first) {
@@ -60,7 +59,6 @@ void proccontrol_publish_pidtable(int num_processes, process_info_p process)
   }
   msg.num_processes = num_processes;
   msg.process = plist;
-  current_time = carmen_get_time();
   for(i = 0; i < msg.num_processes; i++) {
     msg.process[i].group_name = process[i].group_name;
     msg.process[i].module_name = process[i].module_name;

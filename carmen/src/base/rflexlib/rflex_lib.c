@@ -152,14 +152,11 @@ cmdSend( int port, int id, int opcode, int len, unsigned char *data )
 static void
 parseMotReport( unsigned char *buffer )
 {
-  int rv, timeStamp, acc, trq;
   unsigned char axis, opcode;
     
   opcode = buffer[4];
   switch(opcode) {
   case MOT_SYSTEM_REPORT:
-    rv        = convertBytes2UInt32(&(buffer[6]));
-    timeStamp = convertBytes2UInt32(&(buffer[10]));
     axis      = buffer[14];
     if (axis == 0) {
       status.current_displacement_odometry=convertBytes2UInt32(&(buffer[15]));
@@ -168,8 +165,6 @@ parseMotReport( unsigned char *buffer )
       status.current_bearing_odometry = convertBytes2UInt32(&(buffer[15]));
       status.r_vel = convertBytes2UInt32(&(buffer[19]));
     }
-    acc       = convertBytes2UInt32(&(buffer[23]));
-    trq       = convertBytes2UInt32(&(buffer[27]));
     break;
   default:
     break;
@@ -181,7 +176,7 @@ parseSonarReport( unsigned char *buffer )
 {
   unsigned int sid;
  
-  int count, retval, timeStamp;
+  int count;
   unsigned char opcode, dlen;
     
   opcode = buffer[4];
@@ -190,8 +185,6 @@ parseSonarReport( unsigned char *buffer )
   status.num_sonars=MAX_NUM_SONARS;
   switch(opcode) {
   case SONAR_REPORT:
-    retval    = convertBytes2UInt32(&(buffer[6]));
-    timeStamp = convertBytes2UInt32(&(buffer[10]));
     count = 0;
     while ((8+count*3<dlen) && (count<256)) {
       sid   = buffer[14+count*3];
@@ -301,13 +294,12 @@ void
 carmen_rflex_odometry_on(long period)
 { 
   unsigned char data[MAX_COMMAND_LENGTH];
-  int num_read;
   
   convertUInt32( period, &(data[0]) );         /* period in ms */
   convertUInt32( (long) 3, &(data[4]) );       /* mask */
   cmdSend(MOT_PORT, 0, MOT_SYSTEM_REPORT_REQ, 8, data);
 
-  num_read = read(dev_fd, data, MAX_COMMAND_LENGTH);   
+  read(dev_fd, data, MAX_COMMAND_LENGTH);
 }
 
 void

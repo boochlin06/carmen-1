@@ -275,7 +275,6 @@ static int params_save_as_ini(char *filename) {
   int line_length;
   int count;
   int m, p;
-  char *ret_val;
 
   fin = fout = NULL;
 
@@ -294,7 +293,7 @@ static int params_save_as_ini(char *filename) {
 
   count = 0;
   while (!feof(fin)) {
-    ret_val = fgets(line, MAX_VARIABLE_LENGTH, fin);
+    fgets(line, MAX_VARIABLE_LENGTH, fin);
     strncpy(line_out, line, MAX_VARIABLE_LENGTH - 1);
     count++;
     if (feof(fin))

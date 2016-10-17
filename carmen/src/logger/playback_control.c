@@ -46,12 +46,9 @@ static void delete_event(GtkWidget *widget, GdkEvent *event, gpointer data)
   gtk_main_quit ();
 }
 
-static void speed_changed(GtkWidget *w, gpointer data __attribute__ ((unused)))
+static void speed_changed(GtkWidget *w __attribute__ ((unused)),
+			  gpointer data __attribute__ ((unused)))
 {
-  char *value;
-
-  value = gtk_editable_get_chars(GTK_EDITABLE(w), 0, -1);
-  
   speed_pending_update++;
   if (speed_pending_update > 0)
     gtk_label_set_pattern(GTK_LABEL(playback_speed_widget_label),

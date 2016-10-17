@@ -176,11 +176,10 @@ static char *check_mapfile(char *filename)
 static char *check_output(char *filename, int force)
 {
   char key;
-  int num_scanned;
 
   if (!force && carmen_file_exists(filename)) {
     fprintf(stderr, "Overwrite %s? ", filename);
-    num_scanned = scanf("%c", &key);
+    scanf("%c", &key);
     if (toupper(key) != 'Y')
       exit(-1);
   }

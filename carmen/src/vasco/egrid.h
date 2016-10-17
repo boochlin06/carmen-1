@@ -83,7 +83,6 @@ void carmen_mapper_update_evidence_grid_general(evidence_grid *grid,
 						double laser_theta, int num_readings,
 						float *laser_range,
 						float *laser_angle,
-						double angular_resolution,
 						double first_beam_angle);
 
 void carmen_mapper_clear_evidence_grid(evidence_grid *grid);
