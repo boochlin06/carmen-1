@@ -183,7 +183,7 @@ int carmen_arm_direct_initialize(carmen_arm_model_t *arm_model){
   carmen_test_alloc( s_max_pwm );
   
   // set arrays to initial values
-  memcpy( s_joint_types, arm_model->joints, sizeof( arm_model->joints ) );
+  memcpy( s_joint_types, arm_model->joints, sizeof( carmen_arm_model_t ) );
 
   s_joint_types[GRIPPER] = CARMEN_SERVO;  //dbug
 
