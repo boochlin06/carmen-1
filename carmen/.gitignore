@@ -1,0 +1,8 @@
+*.class
+*.o
+*.a
+*.depend
+bin/
+include/
+lib/
+man/
