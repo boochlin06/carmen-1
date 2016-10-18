@@ -44,7 +44,7 @@ endif
 ifndef NO_WAND
 WAND_CFLAGS = `/usr/bin/pkg-config --cflags Wand`
 WAND_LDFLAGS = `/usr/bin/pkg-config --libs Wand`
-CFLAGS += $(WAND_CFLAGS) -Wno-unused-parameter -Wno-unused-but-set-parameter -Wno-deprecated-declarations
+CFLAGS += $(WAND_CFLAGS)
 LFLAGS += $(WAND_LDFLAGS) -L/usr/X11R6/lib 
 SOURCE += magick-utils.c log2pic.c
 PUBLIC_BINARIES += log2pic 
